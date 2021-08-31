@@ -1,0 +1,6 @@
+extraContainers: |
+  - name: {{ include (print "mail.fullname") . -}}-test
+    image: "ubuntu"
+    imagePullPolicy: "Always"
+
+recreateOnRedeploy: false

@@ -1,0 +1,6 @@
+# copy over all values from the service.spc
+service:
+  type: LoadBalancer
+  spec:
+    loadBalancerIP: 10.10.100.100
+    externalTrafficPolicy: Local
