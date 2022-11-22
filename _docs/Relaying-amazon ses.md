@@ -1,5 +1,6 @@
-
-### Relaying messages through Amazon's SES
+---
+title: Relaying messages through Amazon's SES
+---
 
 If your application runs in Amazon Elastic Compute Cloud (Amazon EC2), you can use Amazon SES to send up to 62,000 emails
 every month at no additional charge. You'll need an AWS account and SMTP credentials. The SMTP settings are available

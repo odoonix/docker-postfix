@@ -1,5 +1,6 @@
-
-### Sending messages directly
+---
+title: Sending messages directly
+---
 
 If you're sending messages directly, you'll need to:
 

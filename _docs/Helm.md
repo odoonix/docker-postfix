@@ -1,5 +1,6 @@
-
-## Helm chart
+---
+title: Helm chart
+---
 
 This image comes with its own helm chart. The chart versions are aligned with the releases of the image. Charts are hosted
 through this repository.

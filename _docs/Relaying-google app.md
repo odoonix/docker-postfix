@@ -1,6 +1,6 @@
-
-### Relaying messages through Google Apps account
-
+---
+title: Relaying messages through Google Apps account
+---
 Google Apps allows third-party services to use Google's SMTP servers without much hassle. If you have a static IP, you
 can configure Gmail to accept your messages. You can then send email *from any address within your domain*.
 

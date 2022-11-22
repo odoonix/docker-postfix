@@ -1,0 +1,229 @@
+################################################################################
+# Site settings
+#
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+################################################################################
+title: Postfix Tool
+logo: /logo.svg
+favicon: /logo-favicon.png
+email: info@viraweb123.ir
+description: >- 
+  We are a team of passionate want to help you make a better insight over the 
+  world of security, ERP, programming and etc.
+
+################################################################################
+# Where things are
+################################################################################
+source: .
+destination: ./_site
+plugins_dir: _plugins # takes an array of strings and loads plugins in that order
+layouts_dir: _layouts
+data_dir: _data
+includes_dir: _includes
+#sass:
+#  sass_dir: _sass
+
+#collections_dir: src
+collections:
+  posts:
+    output: true
+  docs:
+    output: true
+  
+
+
+
+################################################################################
+# Handling Reading
+################################################################################
+safe: false
+include: 
+ - .htaccess
+
+#
+# Exclude from processing.
+# The following items will not be processed, by default.
+# Any item listed under the `exclude:` key here will be automatically added to
+# the internal "default list".
+#
+# Excluded items can be processed by explicitly listing the directories or
+# their entries' file path in the `include:` list.
+#
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - configs/
+  - helm/
+  - sample/
+  - scripts/
+  - unit-tests
+  
+keep_files: 
+  - .git
+  - .svn
+#
+# Set the encoding of files by name (only available for Ruby 1.9 or later). The 
+# default value is utf-8 starting in 2.0.0, and nil before 2.0.0, which will 
+# yield the Ruby default of ASCII-8BIT
+#
+encoding: "utf-8"
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
+strict_front_matter: false
+
+
+
+
+################################################################################
+# Filtering Content
+################################################################################
+show_drafts: null
+limit_posts: 0
+future: false
+unpublished: false
+
+
+################################################################################
+# Plugins
+################################################################################
+whitelist: []
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+
+################################################################################
+# Conversion
+################################################################################
+markdown: kramdown
+highlighter: rouge
+lsi: false
+excerpt_separator: "\n\n"
+incremental: false
+
+
+################################################################################
+# Serving
+################################################################################
+detach: false
+port: 4000
+host: 127.0.0.1
+
+#
+# the subpath of your site, e.g. /blog
+#
+baseurl: "" 
+
+#
+# the base hostname & protocol for your site, e.g. http://example.com
+#
+url: "" 
+show_dir_listing: false
+
+
+################################################################################
+# Outputting
+################################################################################
+permalink: date
+paginate_path: /page:num
+timezone: null
+
+quiet: false
+verbose: false
+defaults:
+  - scope:
+      type: "posts"
+    values:
+      layout: "post"
+      category: "post"
+      sitemap: true
+  - scope:
+      type: "docs"
+    values:
+      layout: "page"
+      category: "document"
+      sitemap: true
+      permalink: "/:categories/:title:output_ext"
+
+
+#liquid:
+#  error_mode: warn
+#  strict_filters: false
+#  strict_variables: false
+
+################################################################################
+# Markdown Processors
+################################################################################
+kramdown:
+  auto_ids: true
+  entity_output: as_char
+  toc_levels: [1, 2, 3, 4, 5, 6]
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  input: GFM
+  hard_wrap: false
+  footnote_nr: 1
+  show_warnings: false
+  
+################################################################################
+# Theme
+################################################################################
+# Build settings
+theme: minima
+#
+# Jekyll 4.0 started allowing themes to bundle a _config.yml to simplify 
+# theme-onboarding for new users. In the unfortunate situation that importing a 
+# bundled theme configuration messes up the merged site-configuration, the user 
+# can configure Jekyll to not import the theme-config entirely.
+#
+ignore_theme_config: true
+
+#
+# This allows you to set which pages you want to appear in the navigation area 
+# and configure order of the links.
+#
+header_pages:
+  - posts.html
+  - jobs.html
+  - contact-us.html
+  - about.html
+
+#
+# You can add links to the accounts you have on other sites, with respective 
+# icon, by adding one or more of the following options in your config:
+#
+#twitter_username: jekyllrb
+github_username:  viraweb123
+#dribbble_username: jekyll
+#facebook_username: jekyll
+#flickr_username: jekyll
+#instagram_username: jekyll
+#linkedin_username: jekyll
+#pinterest_username: jekyll
+#youtube_username: jekyll
+rss: rss
+
+
+#
+# To enable Google Analytics, add the following lines to your Jekyll site:
+#
+# Google Analytics will only appear in production, i.e., `JEKYLL_ENV=production`
+#
+google_analytics: UA-NNNNNNNN-N
+
+
+#
+# To display post-excerpts on the Home Page, simply add the following to 
+# your `_config.yml`:
+#
+show_excerpts: true

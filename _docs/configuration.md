@@ -1,5 +1,6 @@
-
-## Configuration options
+---
+title: Configuration options
+---
 
 ### General options
 
@@ -24,7 +25,11 @@ start.
 Example:
 
 ```shell script
-docker run --rm --name postfix -e "ALLOWED_SENDER_DOMAINS=example.com example.org" -p 1587:587 boky/postfix
+docker run --rm \
+  --name postfix \
+  -e "ALLOWED_SENDER_DOMAINS=example.com example.org" \
+  -p 1587:587 \
+  viraweb123/gpost
 ```
 
 If you want to set the restrictions on the recipient and not on the sender (anyone can send mails but just to a single domain
@@ -245,30 +250,34 @@ done
 ...
 ```
 
-`opendkim-genkey` is usually in your favourite distribution provided by installing `opendkim-tools` or `opendkim-utils`.
+`opendkim-genkey` is usually in your favourite distribution provided by installing 
+`opendkim-tools` or `opendkim-utils`.
 
-Add the created `<domain>.txt` files to your DNS records. Afterwards, just mount `/etc/opendkim/keys` into your image
-and DKIM will be used automatically, e.g.:
+Add the created `<domain>.txt` files to your DNS records. Afterwards, just mount 
+`/etc/opendkim/keys` into your image and DKIM will be used automatically, e.g.:
 
 ```shell script
-docker run --rm --name postfix -e "ALLOWED_SENDER_DOMAINS=example.com example.org" -v /host/keys:/etc/opendkim/keys -p 1587:587 boky/postfix
+docker run --rm --name postfix \
+    -e "ALLOWED_SENDER_DOMAINS=example.com example.org" \
+    -v /host/keys:/etc/opendkim/keys \
+    -p 1587:587 boky/postfix
 ```
 
 #### Auto-generating the DKIM selectors through the image
 
-If you set the environment variable `DKIM_AUTOGENERATE` to a non-empty value (e.g. `true` or `1`) the image will
-automatically generate the keys.
+If you set the environment variable `DKIM_AUTOGENERATE` to a non-empty value (e.g. `true` or `1`) 
+the image will automatically generate the keys.
 
-**Be careful when using this option**. If you don't bind `/etc/opendkim/keys` to a persistent volume, you will get new
-keys every single time. You will need to take the generated public part of the key (the one in the `.txt` file) and
-copy it over to your DNS server manually.
+**Be careful when using this option**. If you don't bind `/etc/opendkim/keys` to a persistent 
+volume, you will get new keys every single time. You will need to take the generated public part 
+of the key (the one in the `.txt` file) and copy it over to your DNS server manually.
 
 #### Changing the DKIM selector
 
-`mail` is the *default DKIM selector* and should be sufficient for most usages. If you wish to override the selector,
-set the environment variable `DKIM_SELECTOR`, e.g. `... -e DKIM_SELECTOR=postfix`. Note that the same DKIM selector will
-be applied to all found domains. To override a selector for a specific domain use the syntax
-`[<domain>=<selector>,...]`, e.g.:
+`mail` is the *default DKIM selector* and should be sufficient for most usages. If you wish to 
+override the selector, set the environment variable `DKIM_SELECTOR`, e.g. `... -e DKIM_SELECTOR=postfix`. 
+Note that the same DKIM selector will be applied to all found domains. To override a selector for a 
+specific domain use the syntax `[<domain>=<selector>,...]`, e.g.:
 
 ```shell script
 DKIM_SELECTOR=foo,example.org=postfix,example.com=blah
@@ -288,7 +297,7 @@ variable from OpenDKIM config.
 
 #### Verifying your DKIM setup
 
-I strongly suggest using a service such as [dkimvalidator](https://dkimvalidator.com/) to make sure your keys are set up
+We strongly suggest using a service such as [dkimvalidator](https://dkimvalidator.com/) to make sure your keys are set up
 properly and your DNS server is serving them with the correct records.
 
 
@@ -329,3 +338,5 @@ Getting all of this to work properly is not a small feat:
   delivering emails to `outlook.com` domains, you will need to enroll in their
   [Smart Network Data Service](https://sendersupport.olc.protection.outlook.com/snds/) programme. And to do this you
   will need to *be the owner of the netblock you're sending the emails from*.
+
+

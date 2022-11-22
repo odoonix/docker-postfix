@@ -1,5 +1,6 @@
-
-### Relaying messages through your Gmail account
+---
+title: Relaying messages through your Gmail account
+---
 
 Please note that Gmail does not support using your password with non-OAuth2 clients. You will need to either enable
 [Less secure apps](https://support.google.com/accounts/answer/6010255?hl=en) in your account and assign an "app password",

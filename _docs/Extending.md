@@ -1,7 +1,6 @@
-
-## Extending the image
-
-### Using custom init scripts
+---
+title: Extending the image
+---
 
 If you need to add custom configuration to postfix or have it do something outside of the scope of this configuration,
 simply add your scripts to `/docker-init.db/`: All files with the `.sh` extension will be executed automatically at the
@@ -11,7 +10,7 @@ E.g.: create a custom `Dockerfile` like this:
 
 ```shell script
 FROM boky/postfix
-LABEL maintainer="Jack Sparrow <jack.sparrow@theblackpearl.example.com>"
+LABEL maintainer="Mostafa Barmshory <mostafa.barmshory@viraweb123.ir>"
 ADD Dockerfiles/additional-config.sh /docker-init.db/
 ```
 

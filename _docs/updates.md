@@ -11,6 +11,7 @@ As a result Alpine (on which this image is based)
 > `/etc/postfix/main.cf` using `hash` and `btree` must be changed to a supported alternative. See the
 > [Postfix lookup table documentation](http://www.postfix.org/DATABASE_README.html) for more information.
 
-While this should not affect most of the users (`/etc/postfix/main.cf` is managed by this image), there might be use cases where
+While this should not affect most of the users (`/etc/postfix/main.cf` is managed 
+by this image), there might be use cases where
 people have their own configuration which relies on `hash` and `btree` databases. 
 To avoid braking live systems, the version of this image has been updated to `v3.0.0.`.
