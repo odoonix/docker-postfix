@@ -1,6 +1,0 @@
-user = user
-password = pass
-hosts = localhost
-dbname = db
-query = SELECT transport FROM domain WHERE domain='%s' AND active = 't'
-

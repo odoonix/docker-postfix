@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  tests:
+    image: "viraweb123/gpost-unit-test"
+    restart: "no"
+    volumes:
+      - "..:/code"
+    build:
+      context: .
+    command: "/code/unit-tests/"

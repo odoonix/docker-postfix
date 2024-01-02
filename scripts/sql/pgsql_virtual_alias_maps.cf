@@ -1,7 +1,0 @@
-user = user
-password = pass
-hosts = localhost
-dbname = db
-query = SELECT goto FROM alias WHERE address='%s' AND active = 't'
-#expansion_limit = 100
-

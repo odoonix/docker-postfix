@@ -71,30 +71,38 @@ you will most likely have a dedicated outgoing mail server. By setting this opti
 Example:
 
 ```shell script
-docker run --rm --name postfix -e RELAYHOST=192.168.115.215 -p 1587:587 boky/postfix
+docker run --rm --name postfix -e RELAYHOST=192.168.115.215 -p 1587:587 viraweb123/gpost
 ```
 
 You may optionally specifiy a relay port, e.g.:
 
 ```shell script
-docker run --rm --name postfix -e RELAYHOST=192.168.115.215:587 -p 1587:587 boky/postfix
+docker run --rm --name postfix -e RELAYHOST=192.168.115.215:587 -p 1587:587 viraweb123/gpost
 ```
 
 Or an IPv6 address, e.g.:
 
 ```shell script
-docker run --rm --name postfix -e 'RELAYHOST=[2001:db8::1]:587' -p 1587:587 boky/postfix
+docker run --rm --name postfix -e 'RELAYHOST=[2001:db8::1]:587' -p 1587:587 viraweb123/gpost
 ```
 
 If your end server requires you to authenticate with username/password, add them also:
 
 ```shell script
-docker run --rm --name postfix -e RELAYHOST=mail.google.com -e RELAYHOST_USERNAME=hello@gmail.com -e RELAYHOST_PASSWORD=world -p 1587:587 boky/postfix
+docker run --rm --name postfix \
+  -e RELAYHOST=mail.google.com \
+  -e RELAYHOST_USERNAME=hello@gmail.com \
+  -e RELAYHOST_PASSWORD=world \
+  -p 1587:587 \
+  viraweb123/gpost
 ```
 
 #### `POSTFIX_smtp_tls_security_level`
 
-Define relay host TLS connection level. See [smtp_tls_security_level](http://www.postfix.org/postconf.5.html#smtp_tls_security_level) for details. By default, the permissive level ("may") is used, which basically means "use TLS if available" and should be a sane default in most cases.
+Define relay host TLS connection level. See 
+[smtp_tls_security_level](http://www.postfix.org/postconf.5.html#smtp_tls_security_level) 
+for details. By default, the permissive level ("may") is used, which 
+basically means "use TLS if available" and should be a sane default in most cases.
 
 This level defines how the postfix will connect to your upstream server.
 
@@ -102,7 +110,8 @@ This level defines how the postfix will connect to your upstream server.
 
 > Note: These parameters are used when `RELAYHOST` and `RELAYHOST_USERNAME` are provided.
 
-These parameters allow you to configure a relayhost that requires (or recommends) the [XOAuth2 authentication method](https://github.com/tarickb/sasl-xoauth2) (e.g. GMail).
+These parameters allow you to configure a relayhost that requires (or recommends) 
+the [XOAuth2 authentication method](https://github.com/tarickb/sasl-xoauth2) (e.g. GMail).
 
 * `XOAUTH2_CLIENT_ID` and  `XOAUTH2_SECRET` are the [OAuth2 client credentials](#oauth2-client-credentials-gmail).
 * `XOAUTH2_INITIAL_ACCESS_TOKEN` and `XOAUTH2_INITIAL_REFRESH_TOKEN` are the [initial access token and refresh tokens](#obtain-initial-access-token-gmail).
@@ -120,28 +129,33 @@ docker run --rm --name pruebas-postfix \
     -e ALLOW_EMPTY_SENDER_DOMAINS="true" \
     -e XOAUTH2_INITIAL_ACCESS_TOKEN="<put_your_acess_token>" \
     -e XOAUTH2_INITIAL_REFRESH_TOKEN="<put_your_refresh_token>" \
-    boky/postfix
+    viraweb123/gpost
 ```
 
 Next sections describe how to obtain these values.
 
 ##### OAuth2 Client Credentials (GMail)
 
-Visit the [Google API Console](https://console.developers.google.com/) to obtain OAuth 2 credentials (a client ID and client secret) for an "Installed application" application type.
+Visit the [Google API Console](https://console.developers.google.com/) to obtain OAuth 2 
+credentials (a client ID and client secret) for an "Installed application" application type.
 
-Save the client ID and secret and use them to initialize `XOAUTH2_CLIENT_ID` and  `XOAUTH2_SECRET` respectively.
+Save the client ID and secret and use them to initialize `XOAUTH2_CLIENT_ID` 
+and  `XOAUTH2_SECRET` respectively.
 
 We'll also need these credentials in the next step.
 
 ##### Obtain Initial Access Token (GMail)
 
-Use the [Gmail OAuth2 developer tools](https://github.com/google/gmail-oauth2-tools/) to obtain an OAuth token by following the [Creating and Authorizing an OAuth Token](https://github.com/google/gmail-oauth2-tools/wiki/OAuth2DotPyRunThrough#creating-and-authorizing-an-oauth-token) instructions.
+Use the [Gmail OAuth2 developer tools](https://github.com/google/gmail-oauth2-tools/) 
+to obtain an OAuth token by following the [Creating and Authorizing an OAuth Token](https://github.com/google/gmail-oauth2-tools/wiki/OAuth2DotPyRunThrough#creating-and-authorizing-an-oauth-token) instructions.
 
-Save the resulting tokens and use them to initialize `XOAUTH2_INITIAL_ACCESS_TOKEN` and `XOAUTH2_INITIAL_REFRESH_TOKEN`.
+Save the resulting tokens and use them to initialize `XOAUTH2_INITIAL_ACCESS_TOKEN` 
+and `XOAUTH2_INITIAL_REFRESH_TOKEN`.
 
 ##### Debug XOAuth2 issues
 
-If you have XOAuth2 authentication issues you can enable XOAuth2 debug message setting `XOAUTH2_SYSLOG_ON_FAILURE` to `"yes"` (default: `"no"`). If you need a more detailed
+If you have XOAuth2 authentication issues you can enable XOAuth2 debug message 
+setting `XOAUTH2_SYSLOG_ON_FAILURE` to `"yes"` (default: `"no"`). If you need a more detailed
 log trace about XOAuth2 you can set `XOAUTH2_FULL_TRACE` to `"yes"` (default: `"no"`).
 
 #### `MASQUERADED_DOMAINS`
@@ -153,7 +167,11 @@ like rewrite `lorem@ipsum.example.com` to `lorem@example.com`.
 Example:
 
 ```shell script
-docker run --rm --name postfix -e "ALLOWED_SENDER_DOMAINS=example.com example.org" -e "MASQUERADED_DOMAINS=example.com" -p 1587:587 boky/postfix
+docker run --rm --name postfix \
+  -e "ALLOWED_SENDER_DOMAINS=example.com example.org" \
+  -e "MASQUERADED_DOMAINS=example.com" \
+  -p 1587:587 \
+  viraweb123/gpost
 ```
 
 #### `SMTP_HEADER_CHECKS`
@@ -173,7 +191,11 @@ Set `SMTP_HEADER_CHECKS` to type and location of the file to enable this feature
 Example:
 
 ```shell script
-docker run --rm --name postfix -e "SMTP_HEADER_CHECKS="regexp:/etc/postfix/smtp_header_checks" -e "ALLOWED_SENDER_DOMAINS=example.com example.org" -p 1587:587 boky/postfix
+docker run --rm --name postfix \
+  -e "SMTP_HEADER_CHECKS="regexp:/etc/postfix/smtp_header_checks" \
+  -e "ALLOWED_SENDER_DOMAINS=example.com example.org" \
+  -p 1587:587 \
+  viraweb123/gpost
 ```
 
 #### `POSTFIX_myhostname`
@@ -184,7 +206,10 @@ which may make it difficult to track your emails in the log files. If you care a
 I suggest you set this variable, e.g.:
 
 ```shell script
-docker run --rm --name postfix -e "POSTFIX_myhostname=postfix-docker" -p 1587:587 boky/postfix
+docker run --rm --name postfix \
+  -e "POSTFIX_myhostname=postfix-docker" \
+  -p 1587:587 \
+  viraweb123/gpost
 ```
 
 #### `POSTFIX_mynetworks`
@@ -199,7 +224,10 @@ can override this setting.
 Example:
 
 ```shell script
-docker run --rm --name postfix -e "POSTFIX_mynetworks=10.1.2.0/24" -p 1587:587 boky/postfix
+docker run --rm --name postfix \
+  -e "POSTFIX_mynetworks=10.1.2.0/24" \
+  -p 1587:587 \
+  viraweb123/gpost
 ```
 
 #### `POSTFIX_message_size_limit`
@@ -260,7 +288,7 @@ Add the created `<domain>.txt` files to your DNS records. Afterwards, just mount
 docker run --rm --name postfix \
     -e "ALLOWED_SENDER_DOMAINS=example.com example.org" \
     -v /host/keys:/etc/opendkim/keys \
-    -p 1587:587 boky/postfix
+    -p 1587:587 viraweb123/gpost
 ```
 
 #### Auto-generating the DKIM selectors through the image
@@ -315,7 +343,7 @@ docker run --rm --name pruebas-postfix \
     -e ALLOW_EMPTY_SENDER_DOMAINS="true" \
     -e XOAUTH2_INITIAL_ACCESS_TOKEN_FILE="/run/secrets/xoauth2-access-token" \
     -e XOAUTH2_INITIAL_REFRESH_TOKEN_FILE="/run/secrets/xoauth2-refresh-token" \
-    boky/postfix
+    viraweb123/gpost
 ```
 
 Currently, this is only supported for `RELAYHOST_PASSWORD`, `XOAUTH2_CLIENT_ID`, `XOAUTH2_SECRET`, `XOAUTH2_INITIAL_ACCESS_TOKEN`

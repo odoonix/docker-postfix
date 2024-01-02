@@ -9,7 +9,7 @@ end of the startup script.
 E.g.: create a custom `Dockerfile` like this:
 
 ```shell script
-FROM boky/postfix
+FROM viraweb123/gpost
 LABEL maintainer="Mostafa Barmshory <mostafa.barmshory@viraweb123.ir>"
 ADD Dockerfiles/additional-config.sh /docker-init.db/
 ```

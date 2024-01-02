@@ -17,7 +17,7 @@ Chart configuration is as follows:
 | Property | Default value | Description |
 |----------|---------------|-------------|
 | `replicaCount` | `1` | How many replicas to start |
-| `image.repository` | `boky/postfix` | This docker image repository |
+| `image.repository` | `viraweb123/gpost` | This docker image repository |
 | `image.tag` | *empty* | Docker image tag, by default uses Chart's `AppVersion` |
 | `image.pullPolicy` | `IfNotPresent` | [Pull policy](https://kubernetes.io/docs/concepts/containers/images/#updating-images) for the image |
 | `imagePullSecrets` | `[]` | Pull secrets, if neccessary |
