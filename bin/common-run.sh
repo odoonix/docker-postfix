@@ -285,10 +285,6 @@ postfix_setup_debugging() {
 }
 
 postfix_setup_sender_domains() {
-	if [ ! -z "$POSTFIX_DB_TYPE" ]; then
-		debug "Configurations will be managed with db proxy so sender domain is ignored"
-		return 0
-	fi
 	if [ ! -z "$ALLOWED_SENDER_DOMAINS" ]; then
 		infon "Setting up allowed SENDER domains:"
 		allowed_senders=/etc/postfix/allowed_senders
@@ -298,17 +294,15 @@ postfix_setup_sender_domains() {
 			echo -ne " ${emphasis}$i${reset}"
 			echo -e "$i\tOK" >> $allowed_senders
 		done
-		echo
-		postmap lmdb:$allowed_senders
-
-		do_postconf -e "smtpd_recipient_restrictions=reject_non_fqdn_recipient, reject_unknown_recipient_domain, check_sender_access lmdb:$allowed_senders, reject"
-
-		# Since we are behind closed doors, let's just permit all relays.
-		do_postconf -e "smtpd_relay_restrictions=permit"
-	elif [ -z "$ALLOW_EMPTY_SENDER_DOMAINS" ]; then
-		error "You need to specify ALLOWED_SENDER_DOMAINS otherwise Postfix will not run!"
-		exit 1
 	fi
+	echo
+	touch $allowed_senders
+	postmap lmdb:$allowed_senders
+	
+	do_postconf -e "smtpd_recipient_restrictions=reject_non_fqdn_recipient, reject_unknown_recipient_domain, check_sender_access lmdb:$allowed_senders, reject"
+
+	# Since we are behind closed doors, let's just permit all relays.
+	do_postconf -e "smtpd_relay_restrictions=permit"
 }
 
 postfix_setup_masquarading() {

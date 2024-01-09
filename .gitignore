@@ -3,3 +3,8 @@ _site
 .jekyll-cache
 .jekyll-metadata
 vendor
+.venv
+.gpost
+tests/sample/command-line/opendkim
+tests/sample/command-line/postfix
+tests/sample/command-line/spool
