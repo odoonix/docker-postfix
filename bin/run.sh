@@ -3,7 +3,6 @@ set -e
 
 . /usr/bin/common.sh
 . /usr/bin/common-run.sh
-. /usr/bin/common-postfix.sh
 
 # Print startup banner
 announce_startup
@@ -69,8 +68,10 @@ postfix_setup_debugging
 # Configure allowed sender domains
 postfix_setup_sender_domains
 
-# Load database proxy
-#postfix_set_proxy_config
+# Load virtual
+postfix_setup_virtual_mailbox_domains
+postfix_setup_virtual_alias_maps
+postfix_setup_virtual_mailbox_maps
 
 # Setup masquaraded domains
 postfix_setup_masquarading

@@ -1,0 +1,6 @@
+postmap: fatal: open /etc/postfix/main.cf: No such file or directory
+postmap: fatal: open /etc/postfix/main.cf: No such file or directory
+postmap: fatal: open /etc/postfix/main.cf: No such file or directory
+postmap: fatal: open /etc/postfix/main.cf: No such file or directory
+postmap: fatal: unsupported dictionary type: lmdb. Is the postfix-lmdb package installed?
+postmap: fatal: unsupported dictionary type: lmdb. Is the postfix-lmdb package installed?

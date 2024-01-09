@@ -300,9 +300,29 @@ postfix_setup_sender_domains() {
 	postmap lmdb:$allowed_senders
 	
 	do_postconf -e "smtpd_recipient_restrictions=reject_non_fqdn_recipient, reject_unknown_recipient_domain, check_sender_access lmdb:$allowed_senders, reject"
+	do_postconf -e "smtpd_relay_restrictions=permit_mynetworks, permit_sasl_authenticated, permit_auth_destination, reject"
+}
 
-	# Since we are behind closed doors, let's just permit all relays.
-	do_postconf -e "smtpd_relay_restrictions=permit"
+
+postfix_setup_virtual_mailbox_domains(){
+	echo
+	touch $file="/etc/postfix/virtual_mailbox_domains"
+	postmap lmdb:$file
+	do_postconf -e "virtual_mailbox_domains=lmdb:$file"
+}
+
+postfix_setup_virtual_alias_maps(){
+	echo
+	touch $file="/etc/postfix/virtual_alias_maps"
+	postmap lmdb:$file
+	do_postconf -e "virtual_mailbox_domains=lmdb:$file"
+}
+
+postfix_setup_virtual_mailbox_maps(){
+	echo
+	touch $file="/etc/postfix/virtual_mailbox_maps"
+	postmap lmdb:$file
+	do_postconf -e "virtual_mailbox_domains=lmdb:$file"
 }
 
 postfix_setup_masquarading() {

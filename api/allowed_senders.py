@@ -57,10 +57,9 @@ def get_domains():
 def add_domain(domain):
     domains = _load_domains()
     domains.append(domain)
-    _store_domains(domains)
-    return True
+    return _store_domains(domains)
 
 def remove_domain(domain):
     domains = get_domains()
     domains.remove(domain)
-    _store_domains(domains)
+    return _store_domains(domains)

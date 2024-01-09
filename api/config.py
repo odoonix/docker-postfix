@@ -14,14 +14,18 @@ else:
     # TODO: replace with logger
     print("Directory already exists!")
 
-
-
-
-def get_allowed_senders_path():
-    # TODO: get the file list path from main.cf
-    # NOTE: maso, 2024: We just support file map in the current version
-    path =  CDIRECTORY + "/allowed_senders"
+def _file_path_check(path):
     if not os.path.exists(path):
         with open(path, 'w') as fp:
             pass
     return path
+
+
+def get_allowed_senders_path():
+    return _file_path_check(CDIRECTORY + "/allowed_senders")
+
+def get_main_config_path():
+    return _file_path_check(CDIRECTORY + "/main.cf")
+
+def get_config_dir():
+    return CDIRECTORY
