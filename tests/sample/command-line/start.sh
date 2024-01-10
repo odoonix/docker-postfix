@@ -7,9 +7,9 @@ docker run -it --rm \
   --name postfix \
   -p 1587:587 \
   -p 8000:8000 \
-  -v "./$HOME_PATH/spool:/var/spool/postfix" \
-	-v "./$HOME_PATH/postfix:/etc/postfix" \
-	-v "./$HOME_PATH/opendkim:/etc/opendkim/keys" \
+  -v "./.gpost/spool:/var/spool/postfix" \
+	-v "./.gpost/postfix:/etc/postfix" \
+	-v "./.gpost/opendkim:/etc/opendkim/keys" \
   -e TZ="Europe/Amsterdam" \
   -e LOG_FORMAT=plain \
   -e ALLOWED_SENDER_DOMAINS="example.org example2.org example3.org"\

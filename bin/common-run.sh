@@ -306,21 +306,24 @@ postfix_setup_sender_domains() {
 
 postfix_setup_virtual_mailbox_domains(){
 	echo
-	touch $file="/etc/postfix/virtual_mailbox_domains"
+	file="/etc/postfix/virtual_mailbox_domains"
+	touch $file
 	postmap lmdb:$file
 	do_postconf -e "virtual_mailbox_domains=lmdb:$file"
 }
 
 postfix_setup_virtual_alias_maps(){
 	echo
-	touch $file="/etc/postfix/virtual_alias_maps"
+	file="/etc/postfix/virtual_alias_maps"
+	touch $file
 	postmap lmdb:$file
 	do_postconf -e "virtual_mailbox_domains=lmdb:$file"
 }
 
 postfix_setup_virtual_mailbox_maps(){
 	echo
-	touch $file="/etc/postfix/virtual_mailbox_maps"
+	file="/etc/postfix/virtual_mailbox_maps"
+	touch $file
 	postmap lmdb:$file
 	do_postconf -e "virtual_mailbox_domains=lmdb:$file"
 }

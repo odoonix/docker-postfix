@@ -104,5 +104,5 @@ HEALTHCHECK  \
 	CMD printf "EHLO healthcheck\n" | nc 127.0.0.1 587 | grep -qE "^220.*ESMTP Postfix"
 
 EXPOSE 587
-EXPOSE 80
+EXPOSE 8000
 CMD [ "/bin/sh", "-c", "/usr/bin/run.sh" ]

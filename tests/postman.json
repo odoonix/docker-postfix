@@ -1,0 +1,406 @@
+{
+	"info": {
+		"_postman_id": "e55620b4-90db-48aa-89ed-dfa90a946c5b",
+		"name": "GPost - Integeration Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "548892"
+	},
+	"item": [
+		{
+			"name": "allowed_senders",
+			"item": [
+				{
+					"name": "get the origin list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Store list of domains",
+									"var textDate = pm.response.text();",
+									"pm.collectionVariables.set(\"last_allowed_senders\", textDate);",
+									"",
+									"// Validate the list",
+									"var schema = {",
+									"  \"items\": {",
+									"    \"domain\": \"string\",",
+									"    \"allowed\": \"boolean\"",
+									"  }",
+									"};",
+									"",
+									"var data1 = pm.response.toJSON()",
+									"pm.test('Schema is valid', function() {",
+									"  pm.expect(tv4.validate(data1, schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/allowed_senders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"allowed_senders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add a random domain",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"testDomain = \"domain\" + Math.random()+\".net\";",
+									"pm.collectionVariables.set(\"test_domain\", testDomain);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"domain\": \"{{test_domain}}\",\n    \"allowed\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/allowed_senders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"allowed_senders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "origin must contain the domain",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"var schema = {",
+									"    'items': {",
+									"        'domain': 'string',",
+									"        'allowed': 'boolean'",
+									"    }",
+									"};",
+									"",
+									"var data1 = pm.response.toJSON();",
+									"",
+									"pm.test('Schema is valid', function () {",
+									"    pm.expect(tv4.validate(data1, schema)).to.be.true;",
+									"})",
+									"",
+									"var textDate = pm.collectionVariables.get('last_allowed_senders');",
+									"",
+									"var oldList = JSON.parse(textDate);",
+									"",
+									"var testDomain = pm.collectionVariables.get('test_domain');",
+									"",
+									"pm.test(\"Check new domain is added\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    var testDomain = pm.collectionVariables.get('test_domain');",
+									"    var flag = false;",
+									"    for(var index = 0; index < jsonData.length; index++){",
+									"        if(jsonData[index].domain === testDomain){",
+									"            flag = true;",
+									"        }",
+									"    }",
+									"    pm.expect(flag).to.be.true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/allowed_senders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"allowed_senders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete the test domain",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"domain\": \"{{test_domain}}\",\n    \"allowed\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/allowed_senders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"allowed_senders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check the list to be the origin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"var schema = {",
+									"    'items': {",
+									"        'domain': 'string',",
+									"        'allowed': 'boolean'",
+									"    }",
+									"};",
+									"",
+									"var data1 = pm.response.toJSON();",
+									"",
+									"pm.test('Schema is valid', function () {",
+									"    pm.expect(tv4.validate(data1, schema)).to.be.true;",
+									"})",
+									"",
+									"pm.test(\"Check new domain is added\", function () {",
+									"    var textDate = pm.collectionVariables.get('last_allowed_senders');",
+									"    var oldList = JSON.parse(textDate);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).eql(oldList);",
+									"});",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/allowed_senders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"allowed_senders"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Adding a new domain into the Postfix as a sender mail, is so important. here is a BDD to check if the system could add and manage a domain as sender."
+		},
+		{
+			"name": "Getting DKIM for a domain",
+			"item": [
+				{
+					"name": "Add a random domain",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"testDomain = \"domain\" + Math.random()+\".net\";",
+									"pm.collectionVariables.set(\"test_domain_dkim\", testDomain);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"domain\": \"{{test_domain}}\",\n    \"allowed\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/allowed_senders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"allowed_senders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting a valid domain",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/dkim/{{test_domain_dkim}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dkim",
+								"{{test_domain_dkim}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "last_allowed_senders",
+			"value": ""
+		},
+		{
+			"key": "test_domain",
+			"value": ""
+		},
+		{
+			"key": "test_domain_dkim",
+			"value": ""
+		}
+	]
+}
