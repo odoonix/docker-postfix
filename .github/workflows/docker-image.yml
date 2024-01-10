@@ -19,6 +19,6 @@ jobs:
       - name: Build the Odoo Runner 16.0 Docker image
         run: |
             timetag=(`date +%Y%M%d`)
-            docker build . --tag ghcr.io/viraweb123/gpost:${timetag} --tag ghcr.io/viraweb123/gpost:latest --build-arg=BASE_IMAGE="ubuntu:jammy"
-            docker push ghcr.io/viraweb123/odoo-runner:latest
-            docker push ghcr.io/viraweb123/odoo-runner:${timetag}
+            docker build . --tag ghcr.io/viraweb123/gpost:${timetag} --tag ghcr.io/viraweb123/c:latest --build-arg=BASE_IMAGE="ubuntu:jammy"
+            docker push ghcr.io/viraweb123/gpost:latest
+            docker push ghcr.io/viraweb123/gpost:${timetag}
