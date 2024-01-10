@@ -72,6 +72,7 @@ postfix_setup_sender_domains
 postfix_setup_virtual_mailbox_domains
 postfix_setup_virtual_alias_maps
 postfix_setup_virtual_mailbox_maps
+postfix_setup_aliases_maps
 
 # Setup masquaraded domains
 postfix_setup_masquarading

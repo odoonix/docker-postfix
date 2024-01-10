@@ -303,7 +303,6 @@ postfix_setup_sender_domains() {
 	do_postconf -e "smtpd_relay_restrictions=permit_mynetworks, permit_sasl_authenticated, permit_auth_destination, reject"
 }
 
-
 postfix_setup_virtual_mailbox_domains(){
 	echo
 	file="/etc/postfix/virtual_mailbox_domains"
@@ -327,6 +326,16 @@ postfix_setup_virtual_mailbox_maps(){
 	postmap lmdb:$file
 	do_postconf -e "virtual_mailbox_domains=lmdb:$file"
 }
+
+postfix_setup_aliases_maps(){
+	echo
+	file="/etc/postfix/aliases.lmdb"
+	touch $file
+	postmap lmdb:$file
+	do_postconf -e "alias_maps=lmdb:$file"
+	do_postconf -e "alias_database=lmdb:$file"
+}
+
 
 postfix_setup_masquarading() {
 	if [ ! -z "$MASQUERADED_DOMAINS" ]; then
