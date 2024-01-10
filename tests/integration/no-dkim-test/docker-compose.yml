@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+  postfix_test_587:
+    hostname: "postfix"
+    image: "viraweb123/gpost"
+    build:
+      context: ../..
+    restart: always
+    healthcheck:
+      test: [ "CMD", "sh", "-c", "netstat -an | fgrep 587 | fgrep -q LISTEN" ]
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+      retries: 2
+    environment:
+      FORCE_COLOR: "1"
+      MASQUERADED_DOMAINS: "postfix"
+      ALLOWED_SENDER_DOMAINS: ""
+      ALLOW_EMPTY_SENDER_DOMAINS: "true"
+      POSTFIX_smtpd_end_of_data_restrictions: "check_client_access static:discard"
+      LOG_FORMAT: "json"
+  tests:
+    image: "viraweb123/gpost-integration-test"
+    restart: "no"
+    volumes:
+      - "../tester:/code"
+    build:
+      context: ../tester
+    command: "/" # relative path to /code
+    environment:
+      FROM: "demo@example.org"
+      TO: "test@gmail.com"
+      SKIP_INVALID_DOMAIN_SEND: "1"

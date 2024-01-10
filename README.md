@@ -1,9 +1,9 @@
 ---
-title: A Postrix service to work with PostfixAdmin
+title: A Postrix service to relay to Odoo
 ---
 
 
-Simple postfix host ("postfix null client") for your Docker containers. Based on Alpine Linux.
+Postfix host ("postfix null client") for your Docker containers. Based on Alpine Linux.
 
 
 This image allows you to run POSTFIX internally inside your docker cloud/swarm installation to 
@@ -26,17 +26,8 @@ docker run \
 	--rm \
 	--name postfix \
 	-e "ALLOWED_SENDER_DOMAINS=example.com" \
-	-p 1587:587 boky/postfix
+	-p 1587:587 viraweb123/gpost
 ```
-
-or
-
-```shell script
-helm repo add bokysan https://bokysan.github.io/docker-postfix/
-helm upgrade --install --set persistence.enabled=false --set config.general.ALLOW_EMPTY_SENDER_DOMAINS=1 mail bokysan/mail
-```
-
-You can also find this image at [ArtifactHub](https://artifacthub.io/packages/helm/docker-postfix/mail).
 
 
 You can now send emails by using `localhost:1587` (on Docker) as your SMTP server address. 

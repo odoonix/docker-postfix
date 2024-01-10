@@ -1,7 +1,0 @@
-user = user
-password = pass
-hosts = localhost
-dbname = db
-query           = SELECT maildir FROM mailbox WHERE username='%s' AND active = 't'
-#expansion_limit = 100
-

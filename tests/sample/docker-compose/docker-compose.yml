@@ -1,0 +1,58 @@
+version: "3.7"
+services:
+  postfix:
+    build: ../..
+    restart: always
+    environment:
+      FORCE_COLOR: "1"
+      TZ: Europe/Amsterdam
+      # Connect to Odoo DB (vw_db must be installed)
+      POSTFIX_DB_TYPE: pgsql
+      POSTFIX_DB_HOST: db
+      POSTFIX_DB_NAME: odoo
+      POSTFIX_DB_USER: odoo
+      POSTFIX_DB_PASSWORD: odoo
+      
+      POSTFIX_mynetworks: 0.0.0.0
+      #POSTFIX_mynetworks_style: subnet
+
+
+
+
+      ALLOWED_SENDER_DOMAINS: viraweb123.ir coincodile.com ajandtrading.com elbaan.com yuccasoft.com laviaburger.ir rcai.ir etachar.com
+      ALLOW_EMPTY_SENDER_DOMAINS: false
+
+      
+      DKIM_AUTOGENERATE: true
+      DKIM_SELECTOR: default
+      INBOUND_DEBUGGING: 0
+
+    networks:
+     - test-net
+    ports:
+     - '587:587'
+    logging:
+      driver: local
+    volumes:
+     - ./spool:/var/mail
+     - ./spool:/var/spool/mail
+
+  # Postgresql DB
+  # Note: the domain table must be created manualy or vw_db and odoo 15 
+  # installed. Check if there is a sample domain for check.
+  #
+  db:
+    image: postgres:13
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_DB: odoo
+      POSTGRES_PASSWORD: odoo
+      POSTGRES_USER: odoo
+    networks:
+     - test-net
+    logging:
+      driver: local
+
+networks:
+  test-net:
+      
