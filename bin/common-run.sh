@@ -285,9 +285,9 @@ postfix_setup_debugging() {
 }
 
 postfix_setup_sender_domains() {
+	allowed_senders=/etc/postfix/allowed_senders
 	if [ ! -z "$ALLOWED_SENDER_DOMAINS" ]; then
 		infon "Setting up allowed SENDER domains:"
-		allowed_senders=/etc/postfix/allowed_senders
 		rm -f $allowed_senders $allowed_senders.db > /dev/null
 		touch $allowed_senders
 		for i in $ALLOWED_SENDER_DOMAINS; do
