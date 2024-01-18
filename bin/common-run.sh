@@ -436,11 +436,6 @@ postfix_setup_dkim() {
 		fi
 		echo -e "        ...using socket $dkim_socket"
 
-		do_postconf -e "milter_protocol=6"
-		do_postconf -e "milter_default_action=accept"
-		do_postconf -e "smtpd_milters=$dkim_socket"
-		do_postconf -e "non_smtpd_milters=$dkim_socket"
-
 		echo > /etc/opendkim/TrustedHosts
 		echo > /etc/opendkim/KeyTable
 		echo > /etc/opendkim/SigningTable
@@ -554,4 +549,22 @@ unset_sensible_variables() {
 	unset XOAUTH2_SECRET
 	unset XOAUTH2_INITIAL_ACCESS_TOKEN
 	unset XOAUTH2_INITIAL_REFRESH_TOKEN
+}
+
+
+milter_config(){
+
+	echo
+	file="/etc/postfix/smtpd_milter_map"
+	touch $file
+	postmap lmdb:$file
+	do_postconf -e "virtual_mailbox_domains=lmdb:$file"
+
+
+	do_postconf -e "milter_protocol=6"
+	do_postconf -e "milter_default_action=accept"
+	#do_postconf -e "smtpd_milters=$dkim_socket"
+	do_postconf -e "smtpd_milters=lmdb:$$file"
+	#do_postconf -e "non_smtpd_milters=$dkim_socket"
+	do_postconf -e "non_smtpd_milters="
 }

@@ -49,6 +49,7 @@ postfix_set_hostname
 
 # Set TLS level security for relays
 postfix_set_relay_tls_level
+milter_config
 
 # (Pre) Setup XOAUTH2 authentication
 postfix_setup_xoauth2_pre_setup
