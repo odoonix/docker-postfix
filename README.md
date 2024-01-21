@@ -1,20 +1,21 @@
 ---
-title: A Postrix service to relay to Odoo
+title: A Postfix Micro System
 ---
 
 
-Postfix host ("postfix null client") for your Docker containers. Based on Alpine Linux.
+Postfix host ("postfix null client") for your Docker containers.
 
 
 This image allows you to run POSTFIX internally inside your docker cloud/swarm installation to 
 centralise outgoing email sending. 
-The embedded postfix enables you to either _send messages directly_ or _relay them to your 
-company's main server_.
+The embedded postfix enables you to either _send messages directly_ or _relay them to other
+main server_.
 
 This is a _server side_ POSTFIX image, geared towards emails that need to be sent from your applications. 
-That's why this postfix configuration does not support username / password login or similar client-side security features.
+That's why this postfix configuration does not support username / password login or similar
+client-side security features by default.
 
-**IF YOU WANT TO SET UP AND MANAGE A POSTFIX INSTALLATION FOR END USERS, THIS IMAGE IS NOT FOR YOU.** 
+**IF YOU WANT TO SET UP AND MANAGE A POSTFIX INSTALLATION FOR END USERS, THIS IMAGE IS NOT FOR YOU.**
 If you need it to manage your application's outgoing queue, read on.
 
 ## TL;DR
@@ -25,8 +26,9 @@ To run the container, do the following:
 docker run \
 	--rm \
 	--name postfix \
-	-e "ALLOWED_SENDER_DOMAINS=example.com" \
-	-p 1587:587 viraweb123/gpost
+  -p 8000:8000 \
+	-p 1587:587 \
+  viraweb123/gpost
 ```
 
 
@@ -56,16 +58,13 @@ by ISPs, already occupied by other services, and in general should only be used 
 
 ## Architectures
 
-Available for all your favourite architectures. Run in your server cluster. Run it on your Raspberry Pi 4. Run it 
-on your acient Pentium or an old Beaglebone. 
-The following architectures are supported: 
+This is the combination of a HTTP server and Postfix MTA.
 
-- `linux/386`
-- `linux/amd64`
-- `linux/arm/v6`
-- `linux/arm/v7`
-- `linux/arm64`
-- `linux/ppc64le`
+The HTTP server is light fast REST API that allow you to manage basics of
+the Postfix. 
+
+The server is consiste of multi storage for several perpose such as allowed
+host and virtual boxes.
 
 
 

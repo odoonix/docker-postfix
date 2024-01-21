@@ -1,0 +1,135 @@
+
+# Set up host name
+# postfix_set_hostname
+myhostname = 
+
+# Disable local mail delivery
+# postfix_disable_local_mail_delivery
+mydestination =
+
+
+# Don't relay for any domains
+# postfix_disable_domain_relays
+relay_domains = 
+
+# Restrict the size of messages (or set them to unlimited)
+# postfix_restrict_message_size
+# Unlimited message size
+message_size_limit = 0
+
+
+mynetworks = 11.0.0.0/16
+mynetworks_style = subnet
+
+
+
+# See /usr/share/postfix/main.cf.dist for a commented, more complete version
+
+
+# Debian specific:  Specifying a file name will cause the first
+# line of that file to be used as the name.  The Debian default
+# is /etc/mailname.
+#myorigin = /etc/mailname
+
+biff = no
+
+# appending .domain is the MUA's job.
+append_dot_mydomain = no
+
+# Uncomment the next line to generate "delayed mail" warnings
+#delay_warning_time = 4h
+
+readme_directory = no
+
+# See http://www.postfix.org/COMPATIBILITY_README.html -- default to 3.6 on
+# fresh installs.
+compatibility_level = 3.6
+
+
+########################################################################
+#                               SMTPD                                  #
+#                                                                      #
+########################################################################
+smtpd_banner = $myhostname ESMTP $mail_name (GPost)
+
+# TLS parameters
+smtpd_tls_cert_file = /etc/ssl/certs/ssl-cert-snakeoil.pem
+smtpd_tls_key_file = /etc/ssl/private/ssl-cert-snakeoil.key
+smtpd_tls_security_level = may
+smtp_tls_CApath=/etc/ssl/certs
+smtp_tls_session_cache_database = lmdb:${data_directory}/smtp_scache
+
+# Reject invalid HELOs
+# postfix_reject_invalid_helos
+
+smtpd_delay_reject=yes
+
+# Fast reject -- reject straight away when the client is connecting
+smtpd_client_restrictions=
+    permit_mynetworks
+    reject
+
+# Reject / accept on EHLO / HELO command
+smtpd_helo_required = yes
+smtpd_helo_restrictions=
+    permit_mynetworks
+    reject_invalid_helo_hostname
+    permit
+
+# Delayed reject -- reject on MAIL FROM command. Not strictly neccessary to have both, but doesn't hurt
+smtpd_sender_restrictions=
+    permit_mynetworks
+    reject
+
+
+smtpd_recipient_restrictions = 
+    reject_non_fqdn_recipient
+    reject_unknown_recipient_domain
+    check_sender_access lmdb:/etc/postfix/allowed_senders
+    reject
+
+
+smtpd_relay_restrictions = 
+    permit_mynetworks
+    permit_sasl_authenticated
+    permit_auth_destination
+    reject
+
+########################################################################
+#                               MILTER                                 #
+#                                                                      #
+########################################################################
+milter_protocol = 6
+milter_default_action = accept
+smtpd_milters =
+non_smtpd_milters =
+
+
+
+########################################################################
+#                               ALIAS                                 #
+#                                                                      #
+########################################################################
+alias_maps = lmdb:/etc/postfix/aliases.lmdb
+alias_database = lmdb:/etc/postfix/aliases.lmdb
+
+
+
+########################################################################
+#                               Virtual Mailbox                               #
+#                                                                      #
+########################################################################
+virtual_mailbox_domains = lmdb:/etc/postfix/virtual_mailbox_maps
+
+
+
+
+mailbox_size_limit = 0
+recipient_delimiter = +
+inet_interfaces = all
+inet_protocols = all
+manpage_directory = /usr/share/man
+relay_domains = 
+header_size_limit = 4096000
+debug_peer_list = 11.0.0.0/16
+message_size_limit = 26214400

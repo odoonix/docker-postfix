@@ -1,7 +1,7 @@
 import os
 
-import config
-import process
+import utils.storage as storage
+import utils.linux as linux
 
 
 
@@ -44,12 +44,12 @@ def _load_public_key(domain):
 
 
 def _get_public_key_path(domain):
-    return '{}/{}.txt'.format(config.get_dkim_path(), 
+    return '{}/{}.txt'.format(storage.get_dkim_path(), 
                               domain)
 
 
 def _get_private_key_path(domain):
-    return '{}/{}.private'.format(config.get_dkim_path(), 
+    return '{}/{}.private'.format(storage.get_dkim_path(), 
                                   domain)
 
 
@@ -87,7 +87,7 @@ def generate_dkim(domain,
     
     if append_domain:
         cmd.append('--append-domain')
-    process.run(cmd, cwd='/tmp')
+    linux.run(cmd, cwd='/tmp')
     # Fixes https://github.com/linode/docs/pull/620
     os.replace('{}/{}.private'.format(directory, selector), 
                _get_private_key_path(domain))
