@@ -1,7 +1,7 @@
 import logging
 
 import utils.linux as linux
-import api.utils.storage as storage
+import utils.storage as storage
 import os
 
 logger = logging.getLogger(__name__)

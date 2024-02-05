@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-import api.utils.storage as storage
+import utils.storage as storage
 import postfix
 
 #########################################################################################

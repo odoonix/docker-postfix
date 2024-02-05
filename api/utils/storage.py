@@ -1,5 +1,5 @@
 import os
-import linux
+from . import linux 
 
 
 #########################################################################################
@@ -13,11 +13,18 @@ linux.folder_exist(CDIRECTORY, create=True)
 
 
 def get_allowed_senders_path():
-    return linux.file_exist(CDIRECTORY + "/allowed_senders", touch=True)
+    path = CDIRECTORY + "/allowed_senders"
+    if linux.file_exist(path, touch=True):
+        return path
+    
+    raise "File not found"
 
 
 def get_main_config_path():
-    return linux.file_exist(CDIRECTORY + "/main.cf", touch=True)
+    path = CDIRECTORY + "/main.cf"
+    if linux.file_exist(path, touch=True):
+        return path
+    raise "File not fount"
 
 
 def get_config_dir():
