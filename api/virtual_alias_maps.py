@@ -19,13 +19,13 @@ class VirtualAliasMaps(BaseModel):
 #########################################################################################
 # Utilities
 #########################################################################################
-def _store_virtual_alias_maps():
+def _store_virtual_alias_maps(virtual_alias_maps):
     '''
     Writes the virtual alias map into the file, then regenerates the hash map and
     reloads the postfix
     '''
     with open(storage.get_virtual_alias_maps_path(), 'w') as virtual_alias_maps_file:
-        for virtual_alias_map in virtual_alias_maps_file:
+        for virtual_alias_map in virtual_alias_maps:
             virtual_alias_maps_file.write(virtual_alias_map.to_string())
             virtual_alias_maps_file.write('\n')
     postfix.postmap(storage.get_virtual_alias_maps_path())
