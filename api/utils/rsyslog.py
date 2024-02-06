@@ -1,4 +1,4 @@
-import linux
+from . import linux
 import logging
 
 logger = logging.getLogger(__name__)

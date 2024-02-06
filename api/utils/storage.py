@@ -19,6 +19,12 @@ def get_allowed_senders_path():
     
     raise "File not found"
 
+def get_virtual_alias_maps_path():
+    path = CDIRECTORY + "/virtual_alias_maps"
+    if linux.file_exist(path, touch=True):
+        return path
+    
+    raise "\"virtual_alias_maps\" File not found"
 
 def get_main_config_path():
     path = CDIRECTORY + "/main.cf"

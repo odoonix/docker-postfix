@@ -63,15 +63,15 @@ def write_virtual_mailbox_domains(domain: allowed_senders.AllowdDomain):
 ##########################################################################
 @app.get("/virtual_alias_maps")
 def read_virtual_alias_maps():
-    return virtual_alias_maps.get_domains()
+    return virtual_alias_maps.get_virtual_alias_maps()
 
 @app.post("/virtual_alias_maps")
-def write_virtual_alias_maps(domain: allowed_senders.AllowdDomain):
-    return virtual_alias_maps.add_domain(domain)
+def write_virtual_alias_maps(virtual_alias_map: virtual_alias_maps.VirtualAliasMaps):
+    return virtual_alias_maps.add_virtual_alias_map(virtual_alias_map)
 
 @app.delete("/virtual_alias_maps")
-def write_virtual_alias_maps(domain: allowed_senders.AllowdDomain):
-    return virtual_alias_maps.remove_domain(domain)
+def write_virtual_alias_maps(virtual_alias_map: virtual_alias_maps.VirtualAliasMaps):
+    return virtual_alias_maps.remove_virtual_alias_map(virtual_alias_map)
 
 ##########################################################################
 # virtual_mailbox_maps
