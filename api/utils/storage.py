@@ -26,6 +26,13 @@ def get_virtual_alias_maps_path():
     
     raise "\"virtual_alias_maps\" File not found"
 
+def get_virtual_mailbox_maps_path():
+    path = CDIRECTORY + "/virtual_mailbox_maps"
+    if linux.file_exist(path, touch=True):
+        return path
+    
+    raise "\"virtual_mailbox_maps\" File not found"
+
 def get_main_config_path():
     path = CDIRECTORY + "/main.cf"
     if linux.file_exist(path, touch=True):

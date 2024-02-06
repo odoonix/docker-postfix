@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "e55620b4-90db-48aa-89ed-dfa90a946c5b",
+		"_postman_id": "9ff5f99d-7194-45b3-89f6-fca091fda972",
 		"name": "GPost - Integeration Test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "548892"
+		"_exporter_id": "32760871"
 	},
 	"item": [
 		{
@@ -362,6 +362,299 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "virtual_alias",
+			"item": [
+				{
+					"name": "get virtual alias maps",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Store list of domains",
+									"var textDate = pm.response.text();",
+									"pm.collectionVariables.set(\"last_virtual_alias\", textDate);",
+									"",
+									"// Validate the list",
+									"var schema = {",
+									"  \"items\": {",
+									"    \"source\": \"string\",",
+									"    \"destination\": \"string\"",
+									"  }",
+									"};",
+									"",
+									"var data1 = pm.response.toJSON()",
+									"pm.test('Schema is valid', function() {",
+									"  pm.expect(tv4.validate(data1, schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/virtual_alias_maps",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"virtual_alias_maps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post a random virtual alias",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"testSource = \"source@\" + Math.random()+\".com\";",
+									"testDestination = \"destination@\" + Math.random()+\".com\";",
+									"",
+									"pm.collectionVariables.set(\"test_alias_source\", testSource);",
+									"pm.collectionVariables.set(\"test_alias_destination\", testDestination);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"source\": \"{{test_alias_source}}\",\n    \"destination\": \"{{test_alias_destination}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/virtual_alias_maps",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"virtual_alias_maps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete the test virtual alias",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"source\": \"{{test_alias_source}}\",\n    \"destination\": \"{{test_alias_destination}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/virtual_alias_maps",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"virtual_alias_maps"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "virtual_mailbox_maps",
+			"item": [
+				{
+					"name": "get virtual mailbox maps",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Store list of domains",
+									"var textDate = pm.response.text();",
+									"pm.collectionVariables.set(\"last_virtual_mailbox\", textDate);",
+									"",
+									"// Validate the list",
+									"var schema = {",
+									"  \"items\": {",
+									"    \"mailbox\": \"string\",",
+									"    \"location\": \"string\"",
+									"  }",
+									"};",
+									"",
+									"var data1 = pm.response.toJSON()",
+									"pm.test('Schema is valid', function() {",
+									"  pm.expect(tv4.validate(data1, schema)).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/virtual_mailbox_maps",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"virtual_mailbox_maps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add a random virtual mailbox map",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									"random = Math.random()",
+									"testMailbox = \"mailbox\" + random + \"@example.com\";",
+									"testLocation = \"example.com\" + '/' + \"mailbox\" + random + '/';",
+									"",
+									"pm.collectionVariables.set(\"test_mailbox_map_mailbox\", testMailbox);",
+									"pm.collectionVariables.set(\"test_mailbox_map_location\", testLocation);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mailbox\": \"{{test_mailbox_map_mailbox}}\",\n    \"location\": \"{{test_mailbox_map_location}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/virtual_mailbox_maps",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"virtual_mailbox_maps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete the test virtual mailbox map",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mailbox\": \"{{test_mailbox_map_mailbox}}\",\n    \"location\": \"{{test_mailbox_map_location}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/virtual_mailbox_maps",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"virtual_mailbox_maps"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -400,6 +693,30 @@
 		},
 		{
 			"key": "test_domain_dkim",
+			"value": ""
+		},
+		{
+			"key": "last_virtual_alias",
+			"value": ""
+		},
+		{
+			"key": "test_alias_source",
+			"value": ""
+		},
+		{
+			"key": "test_alias_destination",
+			"value": ""
+		},
+		{
+			"key": "test_mailbox_map_mailbox",
+			"value": ""
+		},
+		{
+			"key": "test_mailbox_map_location",
+			"value": ""
+		},
+		{
+			"key": "last_virtual_mailbox",
 			"value": ""
 		}
 	]
