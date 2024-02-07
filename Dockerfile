@@ -57,7 +57,8 @@ RUN true && \
 		python3-pydantic \
 		python3-starlette \
 		python3-uvicorn \
-		python3-fastapi && \
+		python3-fastapi \
+		python3-prometheus-client && \
 	cp -r /etc/postfix /etc/postfix.template && \
 	apt-get clean && \
 	find /var/log -type f -delete
