@@ -2,7 +2,7 @@ import random
 import string
 import unittest
 
-from ..api import utils
+from api import utils
 
 class TestUtils(unittest.TestCase):
 
@@ -13,10 +13,3 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(result, data)
 
         
-
-
-
-
-
-if __name__ == '__main__':
-    unittest.main()
