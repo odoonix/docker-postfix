@@ -89,9 +89,9 @@ def generate_dkim(domain,
         cmd.append('--append-domain')
     linux.run(cmd, cwd='/tmp')
     # Fixes https://github.com/linode/docs/pull/620
-    os.replace('{}/{}.private'.format(directory, selector), 
+    linux.file_mv('{}/{}.private'.format(directory, selector), 
                _get_private_key_path(domain))
-    os.replace('{}/{}.txt'.format(directory, selector), 
+    linux.file_mv('{}/{}.txt'.format(directory, selector), 
                _get_public_key_path(domain))
     return _load_public_key(domain)
 

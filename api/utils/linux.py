@@ -21,6 +21,12 @@ def file_wirte(str, file_path):
         file.write('\n')
 
 
+def file_read(file_path):
+    with open("python.txt", "r") as file:
+        content = file.readlines()
+    return content
+
+
 def file_touch(file_path):
     with open(file_path, 'a') as fp:
         pass
@@ -60,6 +66,14 @@ def file_content_replace(file_path, __old, __new):
 
 
 def file_cp(src_file_path, dst_file_path):
+    # XXX
+    pass
+
+
+def file_mv(src_file_path, dst_file_path):
+    """
+    Move the file (from src to dst)
+    """
     # XXX
     pass
 

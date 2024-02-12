@@ -8,6 +8,11 @@ noop() {
     done
 }
 
+mkdir -p /etc/opendkim
+touch /etc/opendkim/TrustedHosts
+touch /etc/opendkim/KeyTable
+touch /etc/opendkim/SigningTable
+
 if [ ! -d /etc/opendkim/keys ]; then
     noop
 elif [ -z "$(find /etc/opendkim/keys -type f ! -name .)" ]; then
