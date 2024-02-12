@@ -1,33 +1,5 @@
 #!/usr/bin/env bash
 
-announce_startup() {
-	echo -e "${gray}${emphasis}★★★★★ ${reset}${lightblue}POSTFIX STARTING UP${reset}${gray}${emphasis} ★★★★★${reset}"
-}
-
-setup_timezone() {
-	if [ ! -z "$TZ" ]; then
-		TZ_FILE="/usr/share/zoneinfo/$TZ"
-		if [ -f "$TZ_FILE" ]; then
-			notice "Setting container timezone to: ${emphasis}$TZ${reset}"
-			ln -snf "$TZ_FILE" /etc/localtime
-			echo "$TZ" > /etc/timezone
-		else
-			warn "Cannot set timezone to: ${emphasis}$TZ${reset} -- this timezone does not exist."
-		fi
-	else
-		info "Not setting any timezone for the container"
-	fi
-}
-
-rsyslog_log_format() {
-	local log_format="${LOG_FORMAT}"
-	if [[ -z "${log_format}" ]]; then
-		log_format="plain"
-	fi
-	info "Using ${emphasis}${log_format}${reset} log format for rsyslog."
-	sed -i -E "s/<log-format>/${log_format}/" /etc/rsyslog.conf
-}
-
 setup_conf() {
 	local srcfile
 	local dstfile
