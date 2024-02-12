@@ -9,3 +9,4 @@ tests/sample/command-line/opendkim
 tests/sample/command-line/postfix
 tests/sample/command-line/spool
 __pycache__
+*.txt
