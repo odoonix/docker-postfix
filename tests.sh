@@ -1,6 +1,4 @@
 #!/bin/bash
-HOME_PATH=$(dirname $0)
-cd $HOME_PATH/../../../
 docker build . -t viraweb123/gpost
 
 docker run -it --rm \

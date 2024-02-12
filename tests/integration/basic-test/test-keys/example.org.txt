@@ -1,2 +1,0 @@
-mail._domainkey	IN	TXT	( "v=DKIM1; k=rsa; "
-	  "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/f+ltPdT/pAp0EjKSiR0m8KT3dNSoC2XSyK0viIHNwwx0IS/G7Xkl1wR2vzIN+3EvXXeQtajJQ+55+xEUQlXa1RIStZmamCGEKNbXsgNhUBW5tlMJHMxiUbHQHDrv0rDl/9nqpEGeCGRMlWTM4HbQgXm9LWc4bKaDe7ByzmWWhwIDAQAB" )  ; ----- DKIM key mail for example.org
