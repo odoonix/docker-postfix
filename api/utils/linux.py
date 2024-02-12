@@ -18,12 +18,12 @@ def folder_exist(folder_path, create=False):
 
 def file_wirte(str, file_path):
     with open(file_path, 'w') as file:
-        file.write('\n')
+        file.write(str)
 
 
 def file_read(file_path):
-    with open("python.txt", "r") as file:
-        content = file.readlines()
+    with open(file_path, "r") as file:
+        content = file.read()
     return content
 
 
