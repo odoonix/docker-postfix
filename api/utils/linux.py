@@ -66,16 +66,15 @@ def file_content_replace(file_path, __old, __new):
 
 
 def file_cp(src_file_path, dst_file_path):
-    # XXX
-    pass
-
+    with open(src_file_path,'r') as firstfile, open(dst_file_path,'w') as secondfile: 
+        for line in firstfile: 
+             secondfile.write(line)
+    return True 
 
 def file_mv(src_file_path, dst_file_path):
-    """
-    Move the file (from src to dst)
-    """
-    # XXX
-    pass
+    file_cp(src_file_path, dst_file_path)
+    os.remove(src_file_path)
+    return True
 
 
 def get_env(key, default=False):
