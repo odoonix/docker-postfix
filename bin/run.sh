@@ -22,6 +22,14 @@ setup_timezone() {
 	fi
 }
 
+# TODO: must update map files
+postmap lmdb:/etc/postfix/aliases
+postmap lmdb:/etc/postfix/allowed_senders
+postmap lmdb:/etc/postfix/smtpd_milter_map
+postmap lmdb:/etc/postfix/virtual_alias_maps
+postmap lmdb:/etc/postfix/virtual_mailbox_domains
+postmap lmdb:/etc/postfix/virtual_mailbox_maps
+
 setup_timezone
 rsyslog_log_format
 exec supervisord \
