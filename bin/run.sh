@@ -30,6 +30,11 @@ postmap lmdb:/etc/postfix/virtual_alias_maps
 postmap lmdb:/etc/postfix/virtual_mailbox_domains
 postmap lmdb:/etc/postfix/virtual_mailbox_maps
 
+# TODO: maso, 2024: check if file exist and dns lookup work
+# SEE
+# https://serverfault.com/questions/1003885/postfix-in-docker-host-or-domain-name-not-found-dns-and-docker
+cp /etc/resolv.conf /var/spool/postfix/etc/
+
 setup_timezone
 rsyslog_log_format
 exec supervisord \
