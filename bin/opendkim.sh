@@ -1,9 +1,8 @@
 #!/bin/sh
 
 noop() {
+    echo "Fail to start opendkim, starting a noop loop"
     while true; do
-        # 2147483647 = max signed 32-bit integer
-        # 2147483647 s ≅ 70 years
         sleep infinity || sleep 2147483647
     done
 }

@@ -85,11 +85,11 @@ RUN chmod +x \
 	/usr/bin/postfix.sh \
 	/usr/bin/api.sh
 
-# Set up volumes
-VOLUME [ \
-	"/var/spool/postfix", \
-	"/etc/postfix", \
-	"/etc/opendkim/keys" ]
+# # Set up volumes
+# VOLUME [ \
+# 	"/var/spool/postfix", \
+# 	"/etc/postfix", \
+# 	"/etc/opendkim/keys" ]
 
 # Run supervisord
 USER root
