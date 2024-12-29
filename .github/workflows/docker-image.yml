@@ -19,6 +19,6 @@ jobs:
       - name: Build the GPost Docker image
         run: |
             timetag=(`date +%Y%M%d`)
-            docker build . --tag ghcr.io/viraweb123/gpost:${timetag} --tag ghcr.io/viraweb123/gpost:latest --build-arg=BASE_IMAGE="ubuntu:jammy"
-            docker push ghcr.io/viraweb123/gpost:latest
-            docker push ghcr.io/viraweb123/gpost:${timetag}
+            docker build . --tag ghcr.io/odoonix/gpost:${timetag} --tag ghcr.io/odoonix/gpost:latest --build-arg=BASE_IMAGE="ubuntu:jammy"
+            docker push ghcr.io/odoonix/gpost:latest
+            docker push ghcr.io/odoonix/gpost:${timetag}
