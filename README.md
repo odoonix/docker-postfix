@@ -28,7 +28,7 @@ docker run \
 	--name postfix \
   -p 8000:8000 \
 	-p 1587:587 \
-  viraweb123/gpost
+  odoonix/docker-postfix
 ```
 
 

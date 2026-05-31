@@ -1,5 +1,5 @@
 #!/bin/bash
-docker build . -t viraweb123/gpost
+docker build . -t odoonix/docker-postfix
 
 docker run -it --rm \
   --name postfix \
@@ -20,4 +20,4 @@ docker run -it --rm \
   -e DKIM_AUTOGENERATE=1 \
   -e GPOT_STORAGE_PATH=/etc/postfix \
   -e GPOT_DKIM_STORAGE_PATH=/etc/opendkim \
-  viraweb123/gpost
+      odoonix/docker-postfix

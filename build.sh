@@ -10,7 +10,7 @@ fi
 docker login
 
 # build, tag, and push alpine versions supplied as script arguments
-base_repo=viraweb123/gpost
+base_repo=odoonix/docker-postfix
 for ubuntu_version in "$@"; do
   docker build -t "$base_repo" --build-arg=BASE_IMAGE="ubuntu:$ubuntu_version" .
 done

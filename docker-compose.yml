@@ -18,8 +18,8 @@ services:
 
 
 
-
-      ALLOWED_SENDER_DOMAINS: viraweb123.ir coincodile.com ajandtrading.com elbaan.com yuccasoft.com laviaburger.ir rcai.ir etachar.com
+      # TODO: maso, 2026: Store list in DB file.
+      ALLOWED_SENDER_DOMAINS: coincodile.com ajandtrading.com elbaan.com yuccasoft.com laviaburger.ir rcai.ir etachar.com
       ALLOW_EMPTY_SENDER_DOMAINS: false
 
       

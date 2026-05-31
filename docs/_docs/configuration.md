@@ -29,7 +29,7 @@ docker run --rm \
   --name postfix \
   -e "ALLOWED_SENDER_DOMAINS=example.com example.org" \
   -p 1587:587 \
-  viraweb123/gpost
+    odoonix/docker-postfix
 ```
 
 If you want to set the restrictions on the recipient and not on the sender (anyone can send mails but just to a single domain
@@ -71,19 +71,19 @@ you will most likely have a dedicated outgoing mail server. By setting this opti
 Example:
 
 ```shell script
-docker run --rm --name postfix -e RELAYHOST=192.168.115.215 -p 1587:587 viraweb123/gpost
+docker run --rm --name postfix -e RELAYHOST=192.168.115.215 -p 1587:587 odoonix/docker-postfix
 ```
 
 You may optionally specifiy a relay port, e.g.:
 
 ```shell script
-docker run --rm --name postfix -e RELAYHOST=192.168.115.215:587 -p 1587:587 viraweb123/gpost
+docker run --rm --name postfix -e RELAYHOST=192.168.115.215:587 -p 1587:587 odoonix/docker-postfix
 ```
 
 Or an IPv6 address, e.g.:
 
 ```shell script
-docker run --rm --name postfix -e 'RELAYHOST=[2001:db8::1]:587' -p 1587:587 viraweb123/gpost
+docker run --rm --name postfix -e 'RELAYHOST=[2001:db8::1]:587' -p 1587:587 odoonix/docker-postfix
 ```
 
 If your end server requires you to authenticate with username/password, add them also:
@@ -94,7 +94,7 @@ docker run --rm --name postfix \
   -e RELAYHOST_USERNAME=hello@gmail.com \
   -e RELAYHOST_PASSWORD=world \
   -p 1587:587 \
-  viraweb123/gpost
+    odoonix/docker-postfix
 ```
 
 #### `POSTFIX_smtp_tls_security_level`
@@ -129,7 +129,7 @@ docker run --rm --name pruebas-postfix \
     -e ALLOW_EMPTY_SENDER_DOMAINS="true" \
     -e XOAUTH2_INITIAL_ACCESS_TOKEN="<put_your_acess_token>" \
     -e XOAUTH2_INITIAL_REFRESH_TOKEN="<put_your_refresh_token>" \
-    viraweb123/gpost
+      odoonix/docker-postfix
 ```
 
 Next sections describe how to obtain these values.
@@ -171,7 +171,7 @@ docker run --rm --name postfix \
   -e "ALLOWED_SENDER_DOMAINS=example.com example.org" \
   -e "MASQUERADED_DOMAINS=example.com" \
   -p 1587:587 \
-  viraweb123/gpost
+  odoonix/docker-postfix
 ```
 
 #### `SMTP_HEADER_CHECKS`
@@ -195,7 +195,7 @@ docker run --rm --name postfix \
   -e "SMTP_HEADER_CHECKS="regexp:/etc/postfix/smtp_header_checks" \
   -e "ALLOWED_SENDER_DOMAINS=example.com example.org" \
   -p 1587:587 \
-  viraweb123/gpost
+  odoonix/docker-postfix
 ```
 
 #### `POSTFIX_myhostname`
@@ -209,7 +209,7 @@ I suggest you set this variable, e.g.:
 docker run --rm --name postfix \
   -e "POSTFIX_myhostname=postfix-docker" \
   -p 1587:587 \
-  viraweb123/gpost
+  odoonix/docker-postfix
 ```
 
 #### `POSTFIX_mynetworks`
@@ -227,7 +227,7 @@ Example:
 docker run --rm --name postfix \
   -e "POSTFIX_mynetworks=10.1.2.0/24" \
   -p 1587:587 \
-  viraweb123/gpost
+  odoonix/docker-postfix
 ```
 
 #### `POSTFIX_message_size_limit`
@@ -288,7 +288,7 @@ Add the created `<domain>.txt` files to your DNS records. Afterwards, just mount
 docker run --rm --name postfix \
     -e "ALLOWED_SENDER_DOMAINS=example.com example.org" \
     -v /host/keys:/etc/opendkim/keys \
-    -p 1587:587 viraweb123/gpost
+    -p 1587:587 odoonix/docker-postfix
 ```
 
 #### Auto-generating the DKIM selectors through the image
@@ -343,7 +343,7 @@ docker run --rm --name pruebas-postfix \
     -e ALLOW_EMPTY_SENDER_DOMAINS="true" \
     -e XOAUTH2_INITIAL_ACCESS_TOKEN_FILE="/run/secrets/xoauth2-access-token" \
     -e XOAUTH2_INITIAL_REFRESH_TOKEN_FILE="/run/secrets/xoauth2-refresh-token" \
-    viraweb123/gpost
+    odoonix/docker-postfix
 ```
 
 Currently, this is only supported for `RELAYHOST_PASSWORD`, `XOAUTH2_CLIENT_ID`, `XOAUTH2_SECRET`, `XOAUTH2_INITIAL_ACCESS_TOKEN`

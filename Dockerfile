@@ -27,7 +27,7 @@ RUN true && \
 
 # ============================ BUILD SASL XOAUTH2 ============================
 FROM ubuntu:jammy
-LABEL maintainer="ViraWeb123 - https://github.com/viraweb123/gpost/"
+LABEL maintainer="odoonix - https://github.com/odoonix/docker-postfix/"
 
 # Install supervisor, postfix
 # Install postfix first to get the first account (101)
