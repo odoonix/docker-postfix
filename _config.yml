@@ -17,7 +17,7 @@ description: >-
 ################################################################################
 # Where things are
 ################################################################################
-source: .
+source: docs
 destination: ./_site
 plugins_dir: _plugins # takes an array of strings and loads plugins in that order
 layouts_dir: _layouts
@@ -32,6 +32,12 @@ collections:
     output: true
   docs:
     output: true
+  dev:
+    output: true
+    permalink: /dev/:name/
+  pages:
+    output: true
+    permalink: /:name/
   
 
 
@@ -55,6 +61,15 @@ include:
 exclude:
   - .sass-cache/
   - .jekyll-cache/
+  - .vscode/
+  - .idea/
+  - .bundle/
+  - .git/
+  - .svn/
+  - .hg/
+  - .github/
+  - .gitlab/
+  - .vagrant/
   - gemfiles/
   - Gemfile
   - Gemfile.lock
@@ -68,6 +83,14 @@ exclude:
   - sample/
   - scripts/
   - unit-tests
+  - _site/
+  - tests/
+  - bin/
+  - tmp/
+  - docker/
+  - api/
+
+
   
 keep_files: 
   - .git
@@ -155,6 +178,18 @@ defaults:
       category: "document"
       sitemap: true
       permalink: "/:categories/:title:output_ext"
+  - scope:
+      type: "dev"
+    values:
+      layout: "page"
+      category: "tutorial"
+      sitemap: true
+  - scope:
+      type: "pages"
+    values:
+      layout: "page"
+      category: "page"
+      sitemap: true
 
 
 #liquid:
@@ -193,10 +228,13 @@ ignore_theme_config: true
 # and configure order of the links.
 #
 header_pages:
-  - posts.html
-  - jobs.html
-  - contact-us.html
-  - about.html
+  - _pages/home.md
+  - _pages/about-us.md
+  - _pages/contact-us.md
+  - _pages/sponsors.md
+  - _pages/resources.md
+  - _pages/blog-list.md
+  - _pages/tutorials.md
 
 #
 # You can add links to the accounts you have on other sites, with respective 

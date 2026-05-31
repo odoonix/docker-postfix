@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">MoonSun Sponsor Cover Sample</title>
+  <desc id="desc">Sample cover image for MoonSun sponsorship announcement blog post.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1f2937"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1260" cy="180" r="220" fill="#111827" opacity="0.35"/>
+  <circle cx="220" cy="760" r="260" fill="#111827" opacity="0.3"/>
+
+  <rect x="120" y="140" width="1360" height="620" rx="28" fill="#0b1220" opacity="0.82"/>
+  <rect x="120" y="140" width="1360" height="12" rx="6" fill="url(#accent)"/>
+
+  <text x="190" y="300" fill="#e5e7eb" font-size="72" font-family="Segoe UI, Arial, sans-serif" font-weight="700">
+    MoonSun Sponsorship Announcement
+  </text>
+  <text x="190" y="380" fill="#9ca3af" font-size="36" font-family="Segoe UI, Arial, sans-serif">
+    Odoo Mail Gateway Project
+  </text>
+
+  <rect x="190" y="450" width="420" height="70" rx="12" fill="#111827"/>
+  <text x="220" y="497" fill="#86efac" font-size="30" font-family="Segoe UI, Arial, sans-serif" font-weight="600">
+    Sample Cover
+  </text>
+
+  <text x="190" y="620" fill="#94a3b8" font-size="28" font-family="Segoe UI, Arial, sans-serif">
+    docs/assets/images/blog/moonsun-sponsor-cover-sample.svg
+  </text>
+</svg>
