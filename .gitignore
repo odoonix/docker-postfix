@@ -4,6 +4,7 @@ _site
 .jekyll-metadata
 vendor
 .venv
+.docs
 .gpost
 tests/sample/command-line/opendkim
 tests/sample/command-line/postfix
