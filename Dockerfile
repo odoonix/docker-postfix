@@ -32,11 +32,11 @@ LABEL maintainer="odoonix - https://github.com/odoonix/docker-postfix/"
 # Install supervisor, postfix
 # Install postfix first to get the first account (101)
 # Install opendkim second to get the second account (102)
-RUN true && \
-	export DEBIAN_FRONTEND=noninteractive && \
-	echo "Europe/Berlin" > /etc/timezone && \
-	apt-get update -y -q && \
-	apt-get install -y \
+RUN true \
+	&& export DEBIAN_FRONTEND=noninteractive \
+	&& echo "Europe/Berlin" > /etc/timezone \
+	&& apt-get update -y -q \
+	&& apt-get install -y \
 		libsasl2-modules \
 		postfix \
 		postfix-pgsql \
@@ -44,6 +44,7 @@ RUN true && \
 		opendkim \
 		opendkim-tools \
 		ca-certificates \
+		mailutils \
 		tzdata \
 		supervisor \
 		rsyslog \
@@ -58,10 +59,11 @@ RUN true && \
 		python3-starlette \
 		python3-uvicorn \
 		python3-fastapi \
-		python3-prometheus-client && \
-	cp -r /etc/postfix /etc/postfix.template && \
-	apt-get clean && \
-	find /var/log -type f -delete
+		python3-prometheus-client \
+	&& cp -r /etc/postfix /etc/postfix.template \
+	&& apt-get clean \
+	&& find /var/log -type f -delete \
+	&& rm -rf /var/lib/apt/lists/*
 
 # Copy SASL-XOAUTH2 plugin
 COPY --from=build /sasl-xoauth2/build/src/libsasl-xoauth2.so /usr/lib/sasl2/

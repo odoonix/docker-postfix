@@ -23,6 +23,13 @@ setup_timezone() {
 }
 
 # TODO: must update map files
+touch /etc/postfix/aliases
+touch /etc/postfix/allowed_senders
+touch /etc/postfix/smtpd_milter_map
+touch /etc/postfix/virtual_alias_maps
+touch /etc/postfix/virtual_mailbox_domains
+touch /etc/postfix/virtual_mailbox_maps
+
 postmap lmdb:/etc/postfix/aliases
 postmap lmdb:/etc/postfix/allowed_senders
 postmap lmdb:/etc/postfix/smtpd_milter_map
